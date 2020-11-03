@@ -10,7 +10,7 @@ describe('--context flag', () => {
         expect(stderr).toBeFalsy();
         expect(exitCode).toBe(0);
         if (isWindows) {
-            const windowsPath = resolve(__dirname, './').replace(/\\/g, '\\\\\\\\');
+            const windowsPath = resolve(__dirname, './').replace(/\\/g, '\\\\');
             expect(stdout).toContain(windowsPath);
         } else {
             expect(stdout).toContain(`context: '${resolve(__dirname, './')}'`);
