@@ -31,7 +31,7 @@ describe(' multiple entries', () => {
     });
 
     it('should allow multiple entry flags', (done) => {
-        const { stderr, stdout } = run(__dirname, ['--entry', '/src/a.js', '--entry', '/src/b.js']);
+        const { stderr, stdout } = run(__dirname, ['--entry', './src/a.js', '--entry', './src/b.js']);
         expect(stderr).toBeFalsy();
         expect(stdout).toBeTruthy();
 
