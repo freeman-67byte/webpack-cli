@@ -1,9 +1,19 @@
 'use strict';
 const { statSync } = require('fs');
-const { resolve } = require('path');
+const { resolve, join } = require('path');
+const rimraf = require('rimraf');
 const { run } = require('../../utils/test-utils');
 
 describe('output flag named bundles', () => {
+    beforeEach((done) => {
+        rimraf(join(__dirname, './bin/*'), () => {
+            done();
+        });
+        rimraf(join(__dirname, './binary/*'), () => {
+            done();
+        });
+    });
+
     it('should output file given as flag instead of in configuration', () => {
         const { stderr } = run(__dirname, ['-c', resolve(__dirname, 'webpack.config.js'), '--output-path', './binary'], false);
         expect(stderr).toBeFalsy();

@@ -1,11 +1,17 @@
 'use strict';
 
 const { stat } = require('fs');
-const { resolve } = require('path');
-
+const { resolve, join } = require('path');
+const rimraf = require('rimraf');
 const { run } = require('../../utils/test-utils');
 
 describe('single entry flag index present', () => {
+    beforeEach((done) => {
+        rimraf(join(__dirname, './bin/*'), () => {
+            done();
+        });
+    });
+
     it('finds default index file and compiles successfully', (done) => {
         const { stderr } = run(__dirname);
 

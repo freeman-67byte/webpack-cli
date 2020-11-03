@@ -2,9 +2,16 @@
 
 const { run } = require('../../utils/test-utils');
 const { stat, readFile } = require('fs');
-const { resolve } = require('path');
+const { resolve, join } = require('path');
+const rimraf = require('rimraf');
 
 describe(' multiple entries', () => {
+    beforeEach((done) => {
+        rimraf(join(__dirname, './bin/*'), () => {
+            done();
+        });
+    });
+
     it('should allow multiple entry files', (done) => {
         const { stderr, stdout } = run(__dirname, ['./src/a.js', './src/b.js']);
         expect(stderr).toBeFalsy();
@@ -24,7 +31,7 @@ describe(' multiple entries', () => {
     });
 
     it('should allow multiple entry flags', (done) => {
-        const { stderr, stdout } = run(__dirname, ['--entry', 'src/a.js', '--entry', 'src/b.js']);
+        const { stderr, stdout } = run(__dirname, ['--entry', '/src/a.js', '--entry', '/src/b.js']);
         expect(stderr).toBeFalsy();
         expect(stdout).toBeTruthy();
 
